@@ -1,45 +1,39 @@
 
 // Get app public config value from Ecwid
 
-var config = Ecwid.getAppPublicConfig('custom-thank-you');
-config = JSON.parse(config);
+var customThankYouConfig = Ecwid.getAppPublicConfig('custom-thank-you');
+customThankYouConfig = JSON.parse(customThankYouConfig);
 
-//console.log(config);
+//console.log(customThankYouConfig);
 
 // If the app is enabled in storefront
 
-if(config.enabled == true) {
+if(customThankYouConfig.enabled == true) {
 
-if (config.storeUrl.substring(0,7) == "http://" || config.storeUrl.substring(0,8) == "https://") {
-	console.log("Link has a protocol");
-}	else {
-	console.log("Link does not have protocol specified. Fixing...");
-	config.storeUrl = "//" + config.storeUrl;
-}
-
-Ecwid.OnPageLoaded.add(function(){
-var confirmationPageURL = config.storeUrl;
-
-if (
-  typeof(Ecwid) == 'object'
-  && typeof(Ecwid.OnPageLoad) == 'object'
-) {
-  Ecwid.OnPageLoad.add(function(page) {
+    if (customThankYouConfig.storeUrl.substring(0,7) == "http://" || customThankYouConfig.storeUrl.substring(0,8) == "https://") {
+        console.log("Link has a protocol");
+    }   else {
+        console.log("Link does not have protocol specified. Fixing...");
+        customThankYouConfig.storeUrl = "//" + customThankYouConfig.storeUrl;
+    }
 
 // If Thank you page is opened, redirect customer to set URL in the app
     
     if (
-      typeof(page) == 'object'
-      && 'ORDER_CONFIRMATION' == page.type
+      typeof(Ecwid) == 'object'
+      && typeof(Ecwid.OnPageLoad) == 'object'
     ) {
-      setTimeout( 
-      	function(){
-      		window.top.location.href = confirmationPageURL;
-      	}, config.delay);
+      Ecwid.OnPageLoad.add(function(page) {
+        
+        if (
+          typeof(page) == 'object'
+          && (page.type == 'ORDER_CONFIRMATION' || page.type == 'CHECKOUT_RESULT') // if offline or online payment method was used
+        ) {
+          setTimeout( 
+            function(){
+                window.top.location.href = customThankYouConfig.storeUrl;
+            }, customThankYouConfig.delay);
+        }
+      });
     }
-  });
 }
-
-})
-
-} 
