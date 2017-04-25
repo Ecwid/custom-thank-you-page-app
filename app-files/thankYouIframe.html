@@ -9,7 +9,7 @@
 <script>
     // Initialize the application
     EcwidApp.init({
-      app_id: "custom-thank-you", 
+      app_id: "custom-thank-you", // Use your own app_id value here. It is usually the same as client_id
       autoloadedflag: true, 
       autoheight: true
     });
@@ -120,7 +120,7 @@ function selected() {
 <!-- Save button code -->
 	<tr>
 		<td id="saving" colspan='2'>
-		<button class="btn btn-primary btn-large" onClick="saveUserData();" id="save">
+		<button style='margin-bottom: 20px;' class="btn btn-primary btn-large" onClick="saveUserData();" id="save">
 	<span><script>document.write(languagePack[lang].save);</script></span>  
     <div class="loader">
         <div class="spinner spin-right">
@@ -132,6 +132,12 @@ function selected() {
         </div>
     </div>
 </button>
+
+<div>
+    <div style='margin-top: 20px; margin: 0px auto; max-width: 400px;' class="plate">To save the settings, your app must have the <strong>update_store_profile</strong> access scope. To enable it, <a href='https://developers.ecwid.com/contact' target='_blank'>contact us</a>.
+    </div>
+</div>
+
 		</td>
 	</tr>
 </table>
