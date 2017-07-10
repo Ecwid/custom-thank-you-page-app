@@ -86,7 +86,7 @@ function selected() {
 
 		<td><script>document.write(languagePack[lang].enabled);</script></td>
 		<td id="checkbox">
-			<label class="checkbox big">
+			<label for="enabled" class="checkbox big">
     		<input type="checkbox" name="" id="enabled" onchange="selected()">
     			<div data-on="" data-off="">
         		<div></div>
@@ -99,7 +99,7 @@ function selected() {
 		<td><script>document.write(languagePack[lang].storeUrl);</script></td>
 		<td>
 			<div class="input-append">
-	 			<input type="text" class="form-control" id="storeUrl" placeholder="http://mysite.com/thankyoupage.html" value="">
+	 			<input type="text" aria-label="New thank you page URL" class="form-control" id="storeUrl" placeholder="http://mysite.com/thankyoupage.html" value="">
 	 			<a class="input-addon"></a>
 			</div>
 		</td>
@@ -109,7 +109,7 @@ function selected() {
 		<td>
 			<!-- Hidden delay before redirect feature input -->
 			<div>
- 				<input type="number" class="form-control" id="delay" placeholder="5000" value="">
+ 				<input type="number" aria-label="Delay before redirect" class="form-control" id="delay" placeholder="5000" value="">
 			</div>
 		</td>
 	</tr>
