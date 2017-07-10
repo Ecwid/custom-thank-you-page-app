@@ -9,48 +9,50 @@
 <script>
     // Initialize the application
     EcwidApp.init({
-      app_id: "custom-thank-you", // Use your own app_id value here. It is usually the same as client_id
+      app_id: "custom-thank-you", 
       autoloadedflag: true, 
       autoheight: true
     });
 
 	// Get store info
-    var storeData = EcwidApp.getPayload();
-    var storeId = storeData.store_id;
-    var accessToken = storeData.access_token;
+	var storeData = EcwidApp.getPayload();
+	var storeId = storeData.store_id;
+	var accessToken = storeData.access_token;
 	var lang = storeData.lang;
 
-// Interface translations
-var ru = {
-	title: "Настройки перенаправления",
-	storeUrl: "Куда отправить пользователя?",
-	enabled: "Включить перенаправление",
-	delay: "Задержка перед перенаправлением (миллисекунды)",
-	save: "Сохранить настройки",
-	enabledCheck: "Включено",
-	enabledUnCheck: "Выключено",
-	description: "В момент завершения заказа ваши покупатели будут автоматически переходить на страницу, которую вы укажете в настройках."
-}
+	// Interface translations
+	var ru = {
+		title: "Настройки перенаправления",
+		storeUrl: "Куда отправить пользователя?",
+		enabled: "Включить перенаправление",
+		delay: "Задержка перед перенаправлением (миллисекунды)",
+		save: "Сохранить настройки",
+		enabledCheck: "Включено",
+		enabledUnCheck: "Выключено",
+		description: "В момент завершения заказа ваши покупатели будут автоматически переходить на страницу, которую вы укажете в настройках."
+	}
 
-var en = {
-	title: "Redirect Settings",
-	storeUrl: "Redirect destination URL",
-	enabled: "Enable the redirect",
-	delay: "Delay before redirect (milliseconds)",
-	save: "Save settings",
-	enabledCheck: "enabled",
-	enabledUnCheck: "disabled",
-	description: "Once enabled, your customers will be redirected to the specified destination URL after their order is placed."
-}
+	var en = {
+		title: "Redirect Settings",
+		storeUrl: "Redirect destination URL",
+		enabled: "Enable the redirect",
+		delay: "Delay before redirect (milliseconds)",
+		save: "Save settings",
+		enabledCheck: "enabled",
+		enabledUnCheck: "disabled",
+		description: "Once enabled, your customers will be redirected to the specified destination URL after their order is placed."
+	}
 
-// Load translations depending on language of Ecwid CP
-var languagePack = [ru, en];
+	// Load translations depending on language of Ecwid CP
+	var languagePack = [ru, en];
 
-if (lang == 'ru') {
-	lang = 0;
-} else {
-	lang = 1;
-}
+	if (lang == 'ru') {
+		lang = 0;
+		document.querySelector('html').setAttribute('lang','ru');
+	} else {
+		lang = 1;
+		document.querySelector('html').setAttribute('lang','en');
+	}
 </script>
 
 <script>
@@ -79,10 +81,9 @@ function selected() {
 <p><script>document.write(languagePack[lang].description);</script></p>
 
 <table>
-
-<!-- Select the mode of an application -->
-
 	<tr>
+	<!-- Select the mode of the application -->
+
 		<td><script>document.write(languagePack[lang].enabled);</script></td>
 		<td id="checkbox">
 			<label class="checkbox big">
@@ -93,10 +94,8 @@ function selected() {
 		</label>
 		</td>
 	</tr>
-
-<!-- Field to set the new Thank You page URL -->
-
 	<tr>
+		<!-- Field to set the new Thank You page URL -->
 		<td><script>document.write(languagePack[lang].storeUrl);</script></td>
 		<td>
 			<div class="input-append">
@@ -105,22 +104,18 @@ function selected() {
 			</div>
 		</td>
 	</tr>
-
-<!-- Hidden delay before redirect feature input -->
-
 	<tr id="delay">
 		<td><script>document.write(languagePack[lang].delay);</script></td>
 		<td>
+			<!-- Hidden delay before redirect feature input -->
 			<div>
  				<input type="number" class="form-control" id="delay" placeholder="5000" value="">
 			</div>
 		</td>
 	</tr>
-
-<!-- Save button code -->
 	<tr>
 		<td id="saving" colspan='2'>
-		<button style='margin-bottom: 20px;' class="btn btn-primary btn-large" onClick="saveUserData();" id="save">
+		<button class="btn btn-primary btn-large" onClick="saveUserData();" id="save">
 	<span><script>document.write(languagePack[lang].save);</script></span>  
     <div class="loader">
         <div class="spinner spin-right">
@@ -132,15 +127,19 @@ function selected() {
         </div>
     </div>
 </button>
-
-<div>
-    <div style='margin-top: 20px; margin: 0px auto; max-width: 400px;' class="plate">To save the settings, your app must have the <strong>update_store_profile</strong> access scope. To enable it, <a href='https://developers.ecwid.com/contact' target='_blank'>contact us</a>.
-    </div>
-</div>
-
 		</td>
 	</tr>
 </table>
+
+<script>
+
+// Add hidden text labels for accessibility with translations
+	document.getElementById('storeUrl').setAttribute('aria-label',languagePack[lang].storeUrl);
+	document.getElementById('save').setAttribute('aria-label',languagePack[lang].save);
+	document.getElementById('delay').setAttribute('aria-label',languagePack[lang].delay);
+	document.getElementById('enabled').setAttribute('aria-label',languagePack[lang].enabled);
+
+</script>
 
 </body>
 </html>
